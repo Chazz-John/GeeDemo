@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-//定义一个处理request的结构体
+// Engine 定义一个处理request的结构体
 type Engine struct{}
 
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
@@ -14,8 +14,8 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	case "/":
 		fmt.Fprintf(w, "URL.Path=%q\n", req.URL.Path)
 	case "/hello":
-		for k,v := range req.Header{
-			fmt.Fprintf(w,"Headler[%q]= %q\n",k,v)
+		for k, v := range req.Header {
+			fmt.Fprintf(w, "Headler[%q]= %q\n", k, v)
 		}
 	default:
 		fmt.Fprintf(w, "404 NOT FOUND:%s\n", req.URL)
@@ -24,5 +24,5 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	engine := new(Engine)
-	log.Fatalln(http.ListenAndServe(":8081",engine))
+	log.Fatalln(http.ListenAndServe(":8081", engine))
 }

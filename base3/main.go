@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	r :=gee.New()
+	r := gee.New()
 	r.GET("/", func(writer http.ResponseWriter, request *http.Request) {
 		fmt.Fprintf(writer, "get根路径请求成功!")
 	})

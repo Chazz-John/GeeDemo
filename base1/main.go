@@ -7,15 +7,21 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/",indexHandler)
-	http.HandleFunc("/hello",helloHandler)
-	log.Fatal(http.ListenAndServe(":8081",nil))
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/hello", helloHandler)
+	log.Fatal(http.ListenAndServe(":8081", nil))
 }
-func indexHandler(w http.ResponseWriter,req *http.Request)  {
-	fmt.Fprintf(w, "URL.Path=%q\n",req.URL.Path)
+func indexHandler(w http.ResponseWriter, req *http.Request) {
+	_, err := fmt.Fprintf(w, "URL.Path=%q\n", req.URL.Path)
+	if err != nil {
+		return
+	}
 }
-func helloHandler(w http.ResponseWriter,req *http.Request)  {
-	for k,v := range req.Header{
-		fmt.Fprintf(w,"Headler[%q]= %q\n",k,v)
+func helloHandler(w http.ResponseWriter, req *http.Request) {
+	for k, v := range req.Header {
+		_, err := fmt.Fprintf(w, "Headler[%q]= %q\n", k, v)
+		if err != nil {
+			return
+		}
 	}
 }
